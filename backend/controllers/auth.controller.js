@@ -11,7 +11,7 @@ class AuthController {
             if (errorDetails && errorDetails.error) {
                 return res.status(400).json({
                     error: true,
-                    message: "Validation error",
+                    message: "ValidationUtils error",
                     validation: errorDetails.error.details.map(item => ({
                             key: item.context.key,
                             message: item.message,
@@ -60,7 +60,7 @@ class AuthController {
             if (errorDetails && errorDetails.error) {
                 return res.status(400).json({
                     error: true,
-                    message: "Validation error",
+                    message: "ValidationUtils error",
                     validation: errorDetails.error.details.map(item => ({
                             key: item.context.key,
                             message: item.message,
@@ -107,7 +107,7 @@ class AuthController {
         if (errorDetails && errorDetails.error) {
             return res.status(400).json({
                 error: true,
-                message: "Validation error",
+                message: "ValidationUtils error",
                 validation: errorDetails.error.details.map(item => ({
                         key: item.context.key,
                         message: item.message,
@@ -139,7 +139,7 @@ class AuthController {
             if (errorDetails && errorDetails.error) {
                 return res.status(400).json({
                     error: true,
-                    message: "Validation error",
+                    message: "ValidationUtils error",
                     validation: errorDetails.error.details.map(item => ({
                             key: item.context.key,
                             message: item.message,
