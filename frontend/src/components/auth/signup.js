@@ -40,7 +40,7 @@ export class SignUp {
         }
 
         if (ValidationUtils.validateForm(this.validations)) {
-            const signUp = await AuthService.signUp({
+            const signUpResult = await AuthService.signUp({
                     name: this.nameInputElement.value,
                     lastName: this.lastNameInputElement.value,
                     email: this.emailInputElement.value,
@@ -49,16 +49,16 @@ export class SignUp {
                 }
             )
 
-            if (!signUp) {
+            if (!signUpResult) {
                 alert('Ошибка регистрации')
                 return;
             }
 
             AuthUtils.setAuthInfo({
-                id: signUp.user.id,
-                email: signUp.user.email,
-                name: signUp.user.name,
-                lastName: signUp.user.lastName,
+                id: signUpResult.user.id,
+                email: signUpResult.user.email,
+                name: signUpResult.user.name,
+                lastName: signUpResult.user.lastName,
             })
 
             this.openNewRoute('/login');
