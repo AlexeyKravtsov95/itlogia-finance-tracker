@@ -1,0 +1,34 @@
+<div class="content w-100">
+  <h1 class="title mb-4">Расходы</h1>
+  <div class="d-flex flex-wrap gap-4">
+    <div class="card income-card">
+      <div class="card-body py-3">
+        <h3 class="card-title mb-2">Еда</h3>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="/edit-expenses" class="btn btn-primary">Редактировать</a>
+          <button class="btn btn-danger" data-bs-target="#modal" data-bs-toggle="modal">Удалить</button>
+        </div>
+      </div>
+    </div>
+
+    <a href="/create-expenses" class="text-decoration-none text-center">
+      <div class="card ps-5 pe-5 align-content-center income-card income-card-add">
+        <div class="card-body ps-5 pe-5">
+          <p class="text-center text-secondary">+</p>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="modal" id="modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center fw-bold py-4">
+          <p>Вы действительно хотите удалить категорию? </p>
+          <button type="button" class="btn btn-success me-2" data-bs-dismiss="modal" id="confirm-delete-button">Да, удалить</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

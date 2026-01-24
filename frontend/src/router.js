@@ -8,9 +8,10 @@ export class Router {
         this.initEvents();
         this.routes = [
             {
-              route: '/',
-              title: 'Главная',
-              filePath: "/templates/pages/main.html"
+                route: '/',
+                title: 'Главная',
+                filePath: "/templates/pages/main.html",
+                useLayout: '/templates/layout.html',
             },
             {
                 route: '/login',
@@ -18,7 +19,8 @@ export class Router {
                 filePath: '/templates/pages/auth/login.html',
                 load: () => {
                     new Login(this.openNewRoute.bind(this));
-                }
+                },
+                useLayout: false,
             },
             {
                 route: '/signup',
@@ -26,7 +28,68 @@ export class Router {
                 filePath: '/templates/pages/auth/signup.html',
                 load: () => {
                     new SignUp(this.openNewRoute.bind(this));
-                }
+                },
+                useLayout: false,
+            },
+            {
+                route: '/404',
+                title: 'Страница не найдена',
+                filePath: '/templates/pages/404.html',
+                useLayout: false,
+            },
+            {
+                route: '/income-expense',
+                title: 'Доходы и расходы',
+                filePath: '/templates/pages/income-expenses/income-expenses-main.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/income-expenses-create',
+                title: 'Страница дохода/расхода',
+                filePath: '/templates/pages/income-expenses/income-expenses-create.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/income-expenses-edit',
+                title: 'Редактирование дохода/расхода',
+                filePath: '/templates/pages/income-expenses/income-expenses-edit.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/show-income',
+                title: 'Доходы',
+                filePath: '/templates/pages/income/income-main.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/create-income',
+                title: 'Создание категории дохода',
+                filePath: '/templates/pages/income/income-create.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/edit-income',
+                title: 'Редактирование категории дохода',
+                filePath: '/templates/pages/income/income-edit.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/show-expense',
+                title: 'Расходы',
+                filePath: '/templates/pages/expenses/expenses-main.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/create-expenses',
+                title: 'Создание категории расходов',
+                filePath: '/templates/pages/expenses/expenses-create.html',
+                useLayout: '/templates/layout.html',
+            },
+            {
+                route: '/edit-expenses',
+                title: 'Редактирование категории расхода',
+                filePath: '/templates/pages/expenses/expenses-edit.html',
+                useLayout: '/templates/layout.html',
             }
         ];
     }
@@ -74,6 +137,10 @@ export class Router {
 
             if (newRoute.filePath) {
                 let contentBlock = this.contentPageElement;
+                if (newRoute.useLayout) {
+                    this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(res => res.text());
+                    contentBlock = document.getElementById('content-layout')
+                }
                 contentBlock.innerHTML = await fetch(newRoute.filePath).then(res => res.text());
             }
 

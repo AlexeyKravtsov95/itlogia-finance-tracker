@@ -17,3 +17,102 @@
 body {
   font-family: "RobotoRegular", sans-serif;
 }
+
+.layout {
+  width: 219px;
+  font-size: 14px;
+
+  .sidebar-nav {
+    padding: 60px 20px 0 20px;
+  }
+
+  .sidebar-nav .nav-link {
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 178px;
+  }
+
+  .balance {
+    padding-left: 20px;
+  }
+
+  .profile {
+    padding-left: 20px;
+    padding-bottom: 40px;
+  }
+
+  .dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .dropdown-toggle svg {
+    fill: #052C65;
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown-menu .dropdown-item:focus,
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+  }
+
+  .nav-link svg {
+    fill: #052C65;
+  }
+
+  .dropdown-menu {
+    border: 1px solid #0d6efd;
+  }
+
+  .dropdown-toggle.show svg {
+    fill: white;
+    rotate: 90deg;
+    transition: .3s;
+  }
+
+  .dropdown-menu a {
+    font-size: 14px;
+  }
+}
+
+.content {
+  padding: 100px 60px;
+}
+
+.title {
+  color: #052C65;
+  font-family: "RobotoMedium", sans-serif;
+}
+
+.card-title {
+  font-family: "RobotoMedium", sans-serif;
+}
+
+.btn {
+  font-size: 14px;
+}
+
+.income-card {
+  width: 352px;
+  height: 121px;
+}
+
+.income-card-add {
+  display: flex;
+}
+
+.income-card-add .card-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bi {
+  color: black;
+}
