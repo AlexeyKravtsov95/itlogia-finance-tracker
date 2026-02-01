@@ -16,11 +16,15 @@ export class AuthService {
         const result = await HttpUtils.request('/login', 'POST', false, data);
 
         if (result.error || !result.response && (this.responseAuth(result.response))) {
-            console.error('Ошибка HTTP запро:', result);
+            console.error('Ошибка HTTP запроса:', result);
             return false;
         }
 
         return result.response;
+    }
+
+    static async logout(data) {
+        await HttpUtils.request('/logout', 'POST', false, data);
     }
 
     static responseAuth(response) {

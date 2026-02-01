@@ -1,5 +1,6 @@
 import {SignUp} from "./components/auth/signup";
 import {Login} from "./components/auth/login";
+import {Logout} from "./components/auth/logout";
 
 export class Router {
     constructor() {
@@ -30,6 +31,12 @@ export class Router {
                     new SignUp(this.openNewRoute.bind(this));
                 },
                 useLayout: false,
+            },
+            {
+                route: '/logout',
+                load: () => {
+                    new Logout(this.openNewRoute.bind(this));
+                },
             },
             {
                 route: '/404',
