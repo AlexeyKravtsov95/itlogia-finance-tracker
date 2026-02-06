@@ -9,6 +9,8 @@ import {ExpensesEdit} from "./components/expenses/expenses-edit";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeList} from "./components/income/income-list";
 import {IncomeEdit} from "./components/income/income-edit";
+import {OperationsMain} from "./components/operations/operations-main";
+import {OperationsCreate} from "./components/operations/operations-create";
 
 export class Router {
     constructor() {
@@ -59,15 +61,21 @@ export class Router {
                 title: 'Доходы и расходы',
                 filePath: '/templates/pages/income-expenses/income-expenses-main.html',
                 useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsMain(this.openNewRoute.bind(this));
+                }
             },
             {
-                route: '/income-expenses-create',
+                route: '/income-expenses/create',
                 title: 'Страница дохода/расхода',
                 filePath: '/templates/pages/income-expenses/income-expenses-create.html',
                 useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsCreate(this.openNewRoute.bind(this));
+                }
             },
             {
-                route: '/income-expenses-edit',
+                route: '/income-expenses/edit',
                 title: 'Редактирование дохода/расхода',
                 filePath: '/templates/pages/income-expenses/income-expenses-edit.html',
                 useLayout: '/templates/layout.html',
