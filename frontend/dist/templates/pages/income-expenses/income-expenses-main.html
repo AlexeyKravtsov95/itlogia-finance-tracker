@@ -42,9 +42,22 @@
                     <th>500$</th>
                     <th>11.09.2022</th>
                     <th></th>
-                    <th><i class="bi bi-trash"></i></th>
+                    <th><a href="javascript:void(0)" class="me-2" data-bs-target="#modal" data-bs-toggle="modal"> <i class="bi bi-trash"></i></a>
+                        <a href="/income-expenses-edit"><i class="bi bi-pencil"></i></a></th>
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="modal" id="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center fw-bold py-4">
+                    <p>Вы действительно хотите удалить операцию?</p>
+                    <button type="button" class="btn btn-success me-2" data-bs-dismiss="modal" id="confirm-delete-button">Да, удалить</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Не удалять</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

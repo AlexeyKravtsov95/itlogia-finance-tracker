@@ -40,7 +40,7 @@ export class HttpUtils {
 
         if (response.status < 200 || response.status >= 300) {
             result.error = true;
-            if (useAuth && response === 401) {
+            if (useAuth && response.status === 401) {
                 if (!token) {
                     result.redirect = '/login';
                 } else {
