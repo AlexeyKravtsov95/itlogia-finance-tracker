@@ -54,13 +54,6 @@ export class SignUp {
                 return;
             }
 
-            AuthUtils.setAuthInfo({
-                id: signUpResult.user.id,
-                email: signUpResult.user.email,
-                name: signUpResult.user.name,
-                lastName: signUpResult.user.lastName,
-            })
-
             this.openNewRoute('/login');
         }
     }
