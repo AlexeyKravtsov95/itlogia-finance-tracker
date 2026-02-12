@@ -11,6 +11,7 @@ import {IncomeList} from "./components/income/income-list";
 import {IncomeEdit} from "./components/income/income-edit";
 import {OperationsMain} from "./components/operations/operations-main";
 import {OperationsCreate} from "./components/operations/operations-create";
+import {OperationsEdit} from "./components/operations/operations-edit";
 
 export class Router {
     constructor() {
@@ -79,6 +80,9 @@ export class Router {
                 title: 'Редактирование дохода/расхода',
                 filePath: '/templates/pages/income-expenses/income-expenses-edit.html',
                 useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsEdit(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/show-income',
