@@ -30,7 +30,7 @@ export class CategoryService {
             categories: null
         }
 
-        const result = await HttpUtils.request('/categories/' + type, 'GET');
+        const result = await HttpUtils.request('/categories/' + type);
 
         if (result.redirect || result.error || !result.response || (result.response && result.response.error)) {
             returnObject.error = 'Возникла ошибка при получении списка категорий. Обратитесь в поддержку';
@@ -52,7 +52,7 @@ export class CategoryService {
             category: null,
         }
 
-        const result = await HttpUtils.request('/categories/' + type + '/' + id, 'GET');
+        const result = await HttpUtils.request('/categories/' + type + '/' + id);
 
         if (result.redirect || result.error || !result.response || (result.response && result.response.error)) {
             returnObject.error = 'Возникла ошибка при получении категории. Обратитесь в поддержку';

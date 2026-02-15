@@ -128,7 +128,17 @@ body {
   fill: currentColor;
 }
 
-//a.disabled {
-//  color: gray;
-//  pointer-events: none;
-//}
+.charts {
+  margin-top: 140px;
+  .main-title {
+    font-family: "RobotoMedium", sans-serif;
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .chart-canvas {
+    height: 250px;
+    max-width: 100%;
+    display: block;
+  }
+}
