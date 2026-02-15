@@ -11,6 +11,9 @@ import {IncomeList} from "./components/income/income-list";
 import {IncomeEdit} from "./components/income/income-edit";
 import {OperationsMain} from "./components/operations/operations-main";
 import {OperationsCreate} from "./components/operations/operations-create";
+import {OperationsEdit} from "./components/operations/operations-edit";
+import {Main} from "./components/main/main";
+import {FileUtils} from "./utils/file-utils";
 
 export class Router {
     constructor() {
@@ -25,6 +28,10 @@ export class Router {
                 title: 'Главная',
                 filePath: "/templates/pages/main.html",
                 useLayout: '/templates/layout.html',
+                scripts: ['chart.umd.js'],
+                load: () => {
+                    new Main(this.openNewRoute.bind(this))
+                }
             },
             {
                 route: '/login',
@@ -79,6 +86,9 @@ export class Router {
                 title: 'Редактирование дохода/расхода',
                 filePath: '/templates/pages/income-expenses/income-expenses-edit.html',
                 useLayout: '/templates/layout.html',
+                load: () => {
+                    new OperationsEdit(this.openNewRoute.bind(this));
+                }
             },
             {
                 route: '/show-income',
@@ -172,8 +182,26 @@ export class Router {
     async activeRoute(e, oldRoute = null) {
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
+        if (oldRoute) {
+            const currentRoute = this.routes.find(item => item.route === oldRoute);
+
+            if (currentRoute.scripts && currentRoute.scripts.length > 0) {
+                currentRoute.scripts.forEach(script => {
+                    document.querySelector(`script[src='/js/${script}']`).remove();
+                });
+            }
+
+            if (currentRoute.unload && typeof currentRoute.unload === 'function') {
+                currentRoute.unload();
+            }
+        }
 
         if (newRoute) {
+            if (newRoute.scripts && newRoute.scripts.length > 0) {
+                for (const script of newRoute.scripts) {
+                    await FileUtils.loadPageScript('/js/' + script);
+                }
+            }
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title;
             }
