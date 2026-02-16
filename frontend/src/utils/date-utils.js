@@ -5,6 +5,8 @@ export class DateUtils {
     }
 
     static formatDateToDash(isoDate) {
+        if (isoDate.includes("-")) return isoDate;
+
         const [day, month, year] = isoDate.split(".");
         return `${year}-${month}-${day}`;
     }

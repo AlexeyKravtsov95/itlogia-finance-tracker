@@ -14,6 +14,7 @@ import {OperationsCreate} from "./components/operations/operations-create";
 import {OperationsEdit} from "./components/operations/operations-edit";
 import {Main} from "./components/main/main";
 import {FileUtils} from "./utils/file-utils";
+import {MainService} from "./services/main-service";
 
 export class Router {
     constructor() {
@@ -21,7 +22,7 @@ export class Router {
         this.contentPageElement = document.getElementById('content');
         this.initEvents();
         this.userName = null;
-        this.lastName = null
+        this.lastName = null;
         this.routes = [
             {
                 route: '/',
@@ -224,6 +225,14 @@ export class Router {
                         }
                     }
                     this.profileNameElement.innerText = `${this.userName} ${this.lastName}`;
+
+                    this.balanceText = document.getElementById("balance-text");
+                    this.responseBalance = await MainService.getBalance();
+                    if (this.responseBalance.balance === null) {
+                        this.balanceText.innerText = "0"
+                    }
+                    this.balanceText.innerText = this.responseBalance.balance;
+
                     LayoutUtils.activateMenuItem(newRoute);
                     LayoutUtils.bindDropdownState();
                 }

@@ -13,7 +13,6 @@ export class Main {
         this.bindIntervalInputs();
         this.setActivePeriod(this.currentPeriod);
         this.listOperations(this.currentPeriod).then();
-        this.getBalance().then();
     }
 
     findElements() {
@@ -158,12 +157,5 @@ export class Main {
         if (operation.length === 0) {
             console.error("Нет данных за выбранный период — графики очищены")
         }
-    }
-
-    async getBalance() {
-        const balance = document.getElementById("balance-text");
-        const response = await MainService.getBalance();
-
-        balance.innerText = response.balance;
     }
 }

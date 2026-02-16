@@ -18,7 +18,7 @@ export class OperationsCreate {
         this.validations = [
             {element: this.categorySelect},
             {element: this.amountInputElement},
-            {element: this.dateInputElement, options: { pattern: /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$/}},
+            {element: this.dateInputElement, options: { pattern: /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/}},
             {element: this.commentInputElement},
         ];
 

@@ -6,8 +6,8 @@ export class MainService {
             balance: null,
         }
 
-        const result = await HttpUtils.request('/balance/')
-        if (!result || !result.response || !result.response.balance) return;
+        const result = await HttpUtils.request('/balance')
+        if (!result || !result.response || !result.response.balance && (result.response.balance === null || result.response.balance === undefined)) return;
 
         returnObject.balance = result.response.balance;
         return returnObject;

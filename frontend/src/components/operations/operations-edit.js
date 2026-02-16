@@ -17,10 +17,7 @@ export class OperationsEdit {
         this.validations = [
             {element: this.categorySelect},
             {element: this.amountInputElement},
-            {
-                element: this.dateInputElement,
-                options: {pattern: /^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.(19|20)\d{2}$/}
-            },
+            {element: this.dateInputElement, options: { pattern: /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/}},
             {element: this.commentInputElement},
         ];
 
@@ -49,7 +46,7 @@ export class OperationsEdit {
         this.categoryTypeSelect.value = response.operation.type;
         this.selectCategory(response.operation.category);
         this.amountInputElement.value = response.operation.amount;
-        this.dateInputElement.value = DateUtils.formatDateToDot(response.operation.date);
+        this.dateInputElement.value = response.operation.date;
         this.commentInputElement.value = response.operation.comment;
         this.originalData = response.operation;
     }
