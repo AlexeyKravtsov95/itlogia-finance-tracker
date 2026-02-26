@@ -6,18 +6,37 @@
         <a href="/income-expenses/create" class="btn btn-danger" id="create-expense">Создать расход</a>
     </div>
 
-    <div class="d-flex flex-wrap align-items-center justify-content-center gap-3 mb-5">
-        <button class="btn btn-secondary px-3">Сегодня</button>
-        <button class="btn btn-outline-secondary px-3">Неделя</button>
-        <button class="btn btn-outline-secondary px-3">Месяц</button>
-        <button class="btn btn-outline-secondary px-3">Год</button>
-        <button class="btn btn-outline-secondary px-3">Все</button>
-        <button class="btn btn-outline-secondary px-3">Интервал</button>
-        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center">
+    <div class="d-flex flex-wrap align-items-center justify-content-start gap-3 mb-5">
+        <button class="btn btn-secondary px-3" data-period="today">Сегодня</button>
+        <button class="btn btn-outline-secondary px-3" data-period="week">Неделя</button>
+        <button class="btn btn-outline-secondary px-3" data-period="month">Месяц</button>
+        <button class="btn btn-outline-secondary px-3" data-period="year">Год</button>
+        <button class="btn btn-outline-secondary px-3" data-period="all">Все</button>
+        <button class="btn btn-outline-secondary px-3" data-period="interval">Интервал</button>
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center" id="interval-controls">
             <span>c</span>
-            <a href="javascript:void(0)" class="interval-start link-secondary">День</a>
+            <div class="dropdown">
+                <a href="javascript:void(0)"
+                   class="link-secondary"
+                   id="interval-from-label"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">День</a>
+                <div class="dropdown-menu p-2">
+                    <input type="date" id="interval-from-date" class="form-control">
+                </div>
+            </div>
+
             <span>по</span>
-            <a href="javascript:void(0)" class="interval-end link-secondary">День</a>
+            <div class="dropdown">
+                <a href="javascript:void(0)"
+                   class="link-secondary"
+                   id="interval-to-label"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false">День</a>
+                <div class="dropdown-menu p-2">
+                    <input type="date" id="interval-to-date" class="form-control">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -35,16 +54,7 @@
             </tr>
             </thead>
             <tbody id="records">
-                <tr>
-                    <th>1</th>
-                    <th>доход</th>
-                    <th>зарплата</th>
-                    <th>500$</th>
-                    <th>11.09.2022</th>
-                    <th></th>
-                    <th><a href="javascript:void(0)" class="me-2" data-bs-target="#modal" data-bs-toggle="modal"> <i class="bi bi-trash"></i></a>
-                        <a href="/income-expenses-edit"><i class="bi bi-pencil"></i></a></th>
-                </tr>
+
             </tbody>
         </table>
     </div>

@@ -29,6 +29,7 @@ export class IncomeEdit {
             alert(response.error);
             return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
+        this.incomeEditInput.value = response.category.title;
 
         this.categoryOriginalData = response.category;
     }

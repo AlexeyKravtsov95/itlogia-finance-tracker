@@ -30,6 +30,8 @@ export class ExpensesEdit {
             return response.redirect ? this.openNewRoute(response.redirect) : null;
         }
 
+        this.expenseEditInput.value = response.category.title;
+
         this.categoryOriginalData = response.category;
     }
 

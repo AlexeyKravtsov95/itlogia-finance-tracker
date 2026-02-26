@@ -10,7 +10,8 @@
     "dev": "webpack serve --open"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1"
   },
   "devDependencies": {
     "bootstrap-icons": "^1.13.1",
