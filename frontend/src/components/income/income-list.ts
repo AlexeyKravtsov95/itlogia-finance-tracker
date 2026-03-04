@@ -1,0 +1,77 @@
+import {CategoryService} from "../../services/category-service";
+import config from "../../config/config";
+import {OpenNewRouteType} from "../../type/routes.type";
+import {ActionCategoryResultType, CategoryItemType, GetAllCategoriesResultType} from "../../type/category.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
+
+export class IncomeList {
+    private openNewRoute: OpenNewRouteType;
+    private listElement: HTMLElement;
+    private confirmDeleteButton: HTMLButtonElement;
+
+    constructor(openNewRoute: OpenNewRouteType) {
+        this.openNewRoute = openNewRoute;
+        this.listElement = sharedElement('list-card', HTMLElement);
+        this.confirmDeleteButton = sharedElement('confirm-delete-button', HTMLButtonElement);
+        this.listElement.addEventListener('click', this.handleDeleteClick.bind(this));
+        this.confirmDeleteButton.addEventListener('click', this.handleConfirmDelete.bind(this));
+
+        this.getCategories().then();
+    }
+
+    private async getCategories(): Promise<void> {
+        const response: GetAllCategoriesResultType = await CategoryService.getAllCategories(config.typeCategories.income);
+
+        if (response.error) {
+            alert(response.error);
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
+        }
+
+        this.showCategories(response.categories);
+    }
+
+    private showCategories(categories: CategoryItemType[]) {
+        categories.forEach(category => {
+            this.listElement.insertAdjacentHTML('afterbegin', `
+                <div class="card income-card" data-card-id="${category.id}">
+      <div class="card-body py-3">
+        <h3 class="card-title mb-2">${category.title}</h3>
+        <div class="d-flex flex-wrap gap-2">
+          <a href="/edit-income?id=${category.id}" class="btn btn-primary">Редактировать</a>
+          <button type="button" data-delete-id="${category.id}" class="btn btn-danger" data-bs-target="#modal" data-bs-toggle="modal">Удалить</button>
+        </div>
+      </div>
+    </div>
+            `
+            )
+        })
+    }
+
+    handleDeleteClick(event: Event): void {
+        const target = event.target as HTMLElement;
+        const deleteButton = target.closest('[data-delete-id]') as HTMLElement;
+        if (!deleteButton) {
+            return
+        }
+
+        this.confirmDeleteButton.setAttribute('data-id', deleteButton.dataset.deleteId);
+    }
+
+    private async handleConfirmDelete(): Promise<void> {
+        const id: string = this.confirmDeleteButton.dataset.id;
+        if (!id) return;
+
+        const response: ActionCategoryResultType = await CategoryService.deleteCategory(config.typeCategories.income, id);
+        if (response.error) {
+            alert(response.error);
+            return response.redirect ? this.openNewRoute(response.redirect) : null;
+        }
+
+        const card: HTMLElement = this.listElement.querySelector(`[data-card-id="${id}"]`);
+        if (card) {
+            card.remove();
+        }
+
+        this.confirmDeleteButton.removeAttribute('data-id');
+    }
+}

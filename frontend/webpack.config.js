@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-    entry: './src/app.js',
+    entry: './src/app.ts',
     mode: 'development',
     output: {
         filename: 'app.js',
@@ -19,8 +19,16 @@ module.exports = {
         port: 9000,
         historyApiFallback: true,
     },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
             {
                 test: /\.scss$/i,
                 use: [
