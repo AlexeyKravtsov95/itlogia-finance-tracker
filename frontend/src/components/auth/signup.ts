@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth-service";
 import {AuthUtils} from "../../utils/auth-utils";
 import {OpenNewRouteType} from "../../type/routes.type";
 import {ValidationRule} from "../../type/validate.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class SignUp {
     readonly openNewRoute: OpenNewRouteType;
@@ -32,16 +33,16 @@ export class SignUp {
             {element: this.passwordInputElement, options: {pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/}},
             {element: this.passwordRepeatInputElement, options: {compareTo: this.passwordInputElement.value}}
         ]
-        const signUpButton: HTMLElement = document.getElementById('signup-button');
+        const signUpButton: HTMLButtonElement = sharedElement('signup-button', HTMLButtonElement);
         signUpButton.addEventListener('click', this.signUp.bind(this));
     }
 
     private findElements(): void {
-        this.nameInputElement = document.getElementById('name') as HTMLInputElement;
-        this.lastNameInputElement = document.getElementById('lastName') as HTMLInputElement;
-        this.emailInputElement = document.getElementById('email') as HTMLInputElement;
-        this.passwordInputElement = document.getElementById('password') as HTMLInputElement;
-        this.passwordRepeatInputElement = document.getElementById('repeat-password') as HTMLInputElement;
+        this.nameInputElement = sharedElement('name', HTMLInputElement);
+        this.lastNameInputElement = sharedElement('lastName', HTMLInputElement);
+        this.emailInputElement = sharedElement('email', HTMLInputElement);
+        this.passwordInputElement = sharedElement('password', HTMLInputElement);
+        this.passwordRepeatInputElement = sharedElement('repeat-password', HTMLInputElement);
     }
 
     private async signUp(): Promise<void> {

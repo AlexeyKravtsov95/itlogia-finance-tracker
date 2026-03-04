@@ -13,6 +13,7 @@ import {
     UpdateOperationDataType
 } from "../../type/operation.type";
 import {CategoryItemType, GetAllCategoriesResultType} from "../../type/category.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class OperationsEdit {
     private openNewRoute: OpenNewRouteType;
@@ -46,11 +47,11 @@ export class OperationsEdit {
     }
 
     private findElements(): void {
-        this.categoryTypeSelect = document.getElementById("categoryTypeSelect") as HTMLSelectElement;
-        this.categorySelect = document.getElementById("categorySelect") as HTMLSelectElement;
-        this.amountInputElement = document.getElementById('amount-input') as HTMLInputElement;
-        this.dateInputElement = document.getElementById('date-input') as HTMLInputElement;
-        this.commentInputElement = document.getElementById('comment-input') as HTMLInputElement;
+        this.categoryTypeSelect = sharedElement("categoryTypeSelect", HTMLSelectElement);
+        this.categorySelect = sharedElement("categorySelect", HTMLSelectElement);
+        this.amountInputElement = sharedElement('amount-input', HTMLInputElement);
+        this.dateInputElement = sharedElement('date-input', HTMLInputElement);
+        this.commentInputElement = sharedElement('comment-input', HTMLInputElement);
     }
 
     private async getOperation(id: string): Promise<void> {
@@ -118,7 +119,7 @@ export class OperationsEdit {
             const operationsData: UpdateOperationDataType = {
                 type: this.categoryTypeSelect.value as OperationType,
                 category_id: Number(this.categorySelect.value),
-                amount: this.amountInputElement.value,
+                amount: Number(this.amountInputElement.value),
                 date: DateUtils.formatDateToDash(this.dateInputElement.value),
                 comment: this.commentInputElement.value,
             }

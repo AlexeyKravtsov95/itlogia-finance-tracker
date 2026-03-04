@@ -238,7 +238,7 @@ export class Router {
                     const balanceText: HTMLElement | null = document.getElementById("balance-text");
                     this.responseBalance = await MainService.getBalance();
 
-                    const balanceValue = this.responseBalance?.balance;
+                    const balanceValue: number = this.responseBalance?.balance;
                     balanceText.innerText = balanceValue == null ? "0" : balanceValue.toString();
 
                     LayoutUtils.activateMenuItem(newRoute);

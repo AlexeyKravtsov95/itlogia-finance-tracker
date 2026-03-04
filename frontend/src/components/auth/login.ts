@@ -3,6 +3,8 @@ import {ValidationUtils} from "../../utils/validation-utils";
 import {AuthService} from "../../services/auth-service";
 import {OpenNewRouteType} from "../../type/routes.type";
 import {ValidationRule} from "../../type/validate.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
+import {AuthResponseType} from "../../type/auth-info.type";
 
 export class Login {
     readonly openNewRoute: OpenNewRouteType;
@@ -34,14 +36,14 @@ export class Login {
     }
 
     private findElements(): void {
-        this.emailInputElement = document.getElementById('email') as HTMLInputElement;
-        this.passwordInputElement = document.getElementById('password') as HTMLInputElement;
-        this.rememberMeElement = document.getElementById('remember-me') as HTMLInputElement;
+        this.emailInputElement = sharedElement('email', HTMLInputElement);
+        this.passwordInputElement = sharedElement('password', HTMLInputElement);
+        this.rememberMeElement = sharedElement('remember-me', HTMLInputElement);
     }
 
     private async login(): Promise<void> {
         if (ValidationUtils.validateForm(this.validations)) {
-            const loginResult = await AuthService.login({
+            const loginResult: false | AuthResponseType = await AuthService.login({
                 email: this.emailInputElement.value,
                 password: this.passwordInputElement.value,
                 rememberMe: this.rememberMeElement.checked,

@@ -10,6 +10,7 @@ import {
 } from "../../type/operation.type";
 import {SumChartDataType} from "../../type/chart.type";
 import {Chart} from "chart.js/auto";
+import {sharedElement, sharedElementAll} from "../../extension/htmlElement+ext";
 
 export class Main {
     private openNewRoute: OpenNewRouteType;
@@ -32,11 +33,11 @@ export class Main {
     }
 
     private findElements(): void {
-        this.periodButtons = Array.from(document.querySelectorAll("[data-period]"));
-        this.intervalFromInput = document.getElementById("interval-from-date") as HTMLInputElement;
-        this.intervalToInput = document.getElementById("interval-to-date") as HTMLInputElement;
-        this.intervalFromLabel = document.getElementById("interval-from-label");
-        this.intervalToLabel = document.getElementById("interval-to-label");
+        this.periodButtons = sharedElementAll("[data-period]", HTMLButtonElement);
+        this.intervalFromInput = sharedElement("interval-from-date", HTMLInputElement);
+        this.intervalToInput = sharedElement("interval-to-date", HTMLInputElement);
+        this.intervalFromLabel = sharedElement("interval-from-label", HTMLElement);
+        this.intervalToLabel = sharedElement("interval-to-label", HTMLElement);
     }
 
     async listOperations(period: string, params: GetOperationsParamsType = {}): Promise<void> {

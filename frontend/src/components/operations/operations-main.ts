@@ -1,6 +1,7 @@
 import {OperationService} from "../../services/operation-service";
 import {DateUtils} from "../../utils/date-utils";
 import {CategoryService} from "../../services/category-service";
+import {MainService} from "../../services/main-service";
 import config from "../../config/config";
 import {OpenNewRouteType} from "../../type/routes.type";
 import {
@@ -9,11 +10,13 @@ import {
     OperationItemType,
     ServiceResultType
 } from "../../type/operation.type";
+import {BalanceType} from "../../type/balance.type";
+import {sharedElement, sharedElementAll} from "../../extension/htmlElement+ext";
 
 export class OperationsMain {
     private openNewRoute: OpenNewRouteType;
     private recordsElement: HTMLElement;
-    private confirmDeleteButton: HTMLElement;
+    private confirmDeleteButton: HTMLButtonElement;
     private currentPeriod: string;
     private periodButtons: HTMLButtonElement[];
     private intervalFromInput: HTMLInputElement | null = null;
@@ -31,8 +34,8 @@ export class OperationsMain {
 
         this.currentPeriod = "today";
 
-        const createIncomeButton: HTMLElement = document.getElementById("create-income");
-        const createExpenseButton: HTMLElement = document.getElementById("create-expense");
+        const createIncomeButton: HTMLAnchorElement = sharedElement("create-income", HTMLAnchorElement);
+        const createExpenseButton: HTMLAnchorElement = sharedElement("create-expense", HTMLAnchorElement);
 
         createIncomeButton.addEventListener("click", () => {
             this.openNewRoute("/income-expenses/create?type=income");
@@ -48,13 +51,13 @@ export class OperationsMain {
     }
 
     private findElements(): void {
-        this.recordsElement = document.getElementById("records");
-        this.periodButtons = Array.from(document.querySelectorAll("[data-period]"));
-        this.intervalFromInput = document.getElementById("interval-from-date") as HTMLInputElement;
-        this.intervalToInput = document.getElementById("interval-to-date") as HTMLInputElement;
-        this.intervalFromLabel = document.getElementById("interval-from-label");
-        this.intervalToLabel = document.getElementById("interval-to-label");
-        this.confirmDeleteButton = document.getElementById('confirm-delete-button');
+        this.recordsElement = sharedElement("records", HTMLElement);
+        this.periodButtons = sharedElementAll("[data-period]", HTMLButtonElement);
+        this.intervalFromInput = sharedElement("interval-from-date", HTMLInputElement);
+        this.intervalToInput = sharedElement("interval-to-date", HTMLInputElement);
+        this.intervalFromLabel = sharedElement("interval-from-label", HTMLElement);
+        this.intervalToLabel = sharedElement("interval-to-label", HTMLElement);
+        this.confirmDeleteButton = sharedElement('confirm-delete-button', HTMLButtonElement);
     }
 
     private bindPeriodButtons(): void {
@@ -220,6 +223,13 @@ export class OperationsMain {
         const row: HTMLElement = this.recordsElement.querySelector(`tr[data-row-id="${id}"]`);
         if (row) {
             row.remove();
+        }
+
+        const balanceText: HTMLElement | null = sharedElement("balance-text", HTMLElement);
+        if (balanceText) {
+            const responseBalance: BalanceType = await MainService.getBalance();
+            const balanceValue: number = responseBalance?.balance;
+            balanceText.innerText = balanceValue == null ? "0" : balanceValue.toString();
         }
 
         delete this.confirmDeleteButton.dataset.id;

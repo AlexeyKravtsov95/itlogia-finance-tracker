@@ -7,6 +7,7 @@ import {OpenNewRouteType} from "../../type/routes.type";
 import {ValidationRule} from "../../type/validate.type";
 import {CategoryItemType, GetAllCategoriesResultType} from "../../type/category.type";
 import {CreateOperationDataType, OperationType, ServiceResultType} from "../../type/operation.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class OperationsCreate {
     private openNewRoute: OpenNewRouteType;
@@ -20,11 +21,11 @@ export class OperationsCreate {
     constructor(openNewRoute: OpenNewRouteType) {
         this.openNewRoute = openNewRoute;
 
-        this.categoryTypeSelect = document.getElementById("categoryTypeSelect") as HTMLSelectElement;
-        this.categorySelect = document.getElementById("categorySelect") as HTMLSelectElement;
-        this.amountInputElement = document.getElementById('amount-input') as HTMLInputElement;
-        this.dateInputElement = document.getElementById('date-input') as HTMLInputElement;
-        this.commentInputElement = document.getElementById('comment-input') as HTMLInputElement;
+        this.categoryTypeSelect = sharedElement("categoryTypeSelect", HTMLSelectElement);
+        this.categorySelect = sharedElement("categorySelect", HTMLSelectElement);
+        this.amountInputElement = sharedElement('amount-input', HTMLInputElement);
+        this.dateInputElement = sharedElement('date-input', HTMLInputElement);
+        this.commentInputElement = sharedElement('comment-input', HTMLInputElement);
 
         this.init().then();
         this.validations = [
@@ -34,7 +35,7 @@ export class OperationsCreate {
             {element: this.commentInputElement},
         ];
 
-        const createButton: HTMLElement = document.getElementById('create-button');
+        const createButton: HTMLAnchorElement = sharedElement('create-button', HTMLAnchorElement);
         createButton.addEventListener('click', this.createOperations.bind(this));
     }
 
@@ -110,7 +111,7 @@ export class OperationsCreate {
         if (ValidationUtils.validateForm(this.validations)) {
             const createData: CreateOperationDataType = {
                 type: this.categoryTypeSelect.value as OperationType,
-                amount: this.amountInputElement.value,
+                amount: Number(this.amountInputElement.value),
                 date: DateUtils.formatDateToDash(this.dateInputElement.value),
                 comment: this.commentInputElement.value,
                 category_id: Number(this.categorySelect.value)

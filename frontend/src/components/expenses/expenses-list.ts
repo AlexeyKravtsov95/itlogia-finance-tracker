@@ -2,16 +2,17 @@ import {CategoryService} from "../../services/category-service";
 import config from "../../config/config";
 import {OpenNewRouteType} from "../../type/routes.type";
 import {ActionCategoryResultType, CategoryItemType, GetAllCategoriesResultType} from "../../type/category.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class ExpensesList {
     private openNewRoute: OpenNewRouteType;
     private listElement: HTMLElement;
-    private confirmDeleteButton: HTMLElement;
+    private confirmDeleteButton: HTMLButtonElement;
 
     constructor(openNewRoute: OpenNewRouteType) {
         this.openNewRoute = openNewRoute;
-        this.listElement = document.getElementById('list-card');
-        this.confirmDeleteButton = document.getElementById('confirm-delete-button');
+        this.listElement = sharedElement('list-card', HTMLElement);
+        this.confirmDeleteButton = sharedElement('confirm-delete-button', HTMLButtonElement);
         this.listElement.addEventListener('click', this.handleDeleteClick.bind(this));
         this.confirmDeleteButton.addEventListener('click', this.handleConfirmDelete.bind(this));
 

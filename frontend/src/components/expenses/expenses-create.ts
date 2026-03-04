@@ -4,6 +4,7 @@ import config from "../../config/config";
 import {OpenNewRouteType} from "../../type/routes.type";
 import {ValidationRule} from "../../type/validate.type";
 import {CreateCategoryDataType, CreateCategoryResultType} from "../../type/category.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class ExpensesCreate {
     readonly openNewRoute: OpenNewRouteType;
@@ -13,8 +14,8 @@ export class ExpensesCreate {
 
     constructor(openNewRoute: OpenNewRouteType) {
         this.openNewRoute = openNewRoute;
-        this.expensesInput = document.getElementById("expenses-input") as HTMLInputElement;
-        const createButton: HTMLElement =  document.getElementById('create-button');
+        this.expensesInput = sharedElement("expenses-input", HTMLInputElement);
+        const createButton: HTMLButtonElement = sharedElement('create-button', HTMLButtonElement);
 
         createButton.addEventListener('click', this.createCategoryExpenses.bind(this));
 

@@ -10,6 +10,7 @@ import {
     GetCategoryResultType,
     UpdateCategoryDataType
 } from "../../type/category.type";
+import {sharedElement} from "../../extension/htmlElement+ext";
 
 export class ExpensesEdit {
     readonly openNewRoute: OpenNewRouteType;
@@ -20,9 +21,9 @@ export class ExpensesEdit {
     constructor(openNewRoute: OpenNewRouteType) {
         this.openNewRoute = openNewRoute;
 
-        this.expenseEditInput = document.getElementById("edit-input") as HTMLInputElement;
+        this.expenseEditInput = sharedElement("edit-input", HTMLInputElement);
 
-        const saveButton: HTMLElement = document.getElementById('save-button')
+        const saveButton: HTMLButtonElement = sharedElement('save-button', HTMLButtonElement);
         saveButton.addEventListener('click', this.updateCategoryExpenses.bind(this));
 
         this.validations = [
